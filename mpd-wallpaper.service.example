@@ -1,0 +1,14 @@
+[Unit]
+Description=MPD wallpaper service
+After=network.target mpd.service
+
+[Service]
+Type=simple
+User=<your user name here>
+WorkingDirectory=<the path where the script is>
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/python3 /home/inazuma/scripts/wallpaper/mpd-wallpaper.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

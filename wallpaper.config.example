@@ -1,0 +1,36 @@
+[global]
+# mode : all, albumart or selection
+mode = all
+# mpd music directory
+music_dir = ~/Musique/
+# path to the cover of the playing album
+albumart = /tmp/cover.jpg
+# script wallpaper.py, modify this to the actual location
+wallpaper_script = /home/inazuma/scripts/wallpaper/wallpaper.py
+# if debug = true, the output is more verbose
+debug = true
+picture_infos = ~/Images/backgrounds/infos.json
+
+[mpd]
+# if it's the same song for more than 3600 seconds, we still refresh the cover in /tmp/cover.jpg
+song_interval = 3600
+
+[wallpaper]
+# [nature, photo]
+include_tags = [nature]
+# [human]
+exclude_tags = [duel masters]
+# [green]
+include_colours =
+# [black, yellow]
+exclude_colours =
+# [/home/user/Pictures/wallpaper.jpg, landscape-drawing.png]
+include_files =
+# [/home/user/Pictures/not-wallpaper.jpg, landscape-drawing.png]
+exclude_files = 
+# use a static theme instead of generating it dynamically
+use_static_theme = false
+# wal --theme lists the available themes
+default_theme = base16-dracula
+# script which changes the colors of powerline
+powerline_colors = ~/scripts/wallpaper/powerline-color.sh
