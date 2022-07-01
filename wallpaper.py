@@ -5,7 +5,8 @@
 
 ## TODO
 #
-#   * If the song is paused (for more than x seconds), use a "normal" wallpaper
+# * If the song is paused (for more than x seconds), use a "normal" wallpaper
+# * CONFIG_FILE override
 
 import sys
 import json
@@ -14,16 +15,16 @@ import subprocess
 import random
 import configparser
 
-CONFIG_FILE = expanduser("~") + "/scripts/wallpaper/wallpaper.config"
+CONFIG_FILE = expanduser("~") + "/.config/pyrrot/pyrrot.config"
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
 
-INCLUDE_TAGS = [tag.strip() for tag in config["wallpaper"]["include_tags"].strip("[]").split(',')]
-INCLUDE_COLOURS = [colour.strip() for colour in config["wallpaper"]["include_colours"].strip("[]").split(',')]
-INCLUDE_FILES = [filename.strip() for filename in config["wallpaper"]["include_files"].strip("[]").split(',')]
-EXCLUDE_TAGS = [tag.strip() for tag in config["wallpaper"]["exclude_tags"].strip("[]").split(',')]
-EXCLUDE_COLOURS = [colour.strip() for colour in config["wallpaper"]["exclude_colours"].strip("[]").split(',')]
-EXCLUDE_FILES = [filename.strip() for filename in config["wallpaper"]["exclude_files"].strip("[]").split(',')]
+INCLUDE_TAGS =      [tag.strip() for tag in config["wallpaper"]["include_tags"].strip("[]").split(',')]
+INCLUDE_COLOURS =   [colour.strip() for colour in config["wallpaper"]["include_colours"].strip("[]").split(',')]
+INCLUDE_FILES =     [filename.strip() for filename in config["wallpaper"]["include_files"].strip("[]").split(',')]
+EXCLUDE_TAGS =      [tag.strip() for tag in config["wallpaper"]["exclude_tags"].strip("[]").split(',')]
+EXCLUDE_COLOURS =   [colour.strip() for colour in config["wallpaper"]["exclude_colours"].strip("[]").split(',')]
+EXCLUDE_FILES =     [filename.strip() for filename in config["wallpaper"]["exclude_files"].strip("[]").split(',')]
 if '' in INCLUDE_TAGS:
     INCLUDE_TAGS.remove('')
 if '' in INCLUDE_COLOURS:
@@ -94,17 +95,25 @@ def set_wallpaper(wallpaper, feh_options=["--bg-fill"]):
     subprocess.run(["feh", file] + feh_options)
 
     # setting theme
-    if config["wallpaper"]["use_static_theme"] == "true":
+    print("Theme update : ")
+    print(config.getboolean("global", "update_theme"))
+    if not config.getboolean("global", "update_theme"):
+        return
+    if config.getboolean("wallpaper", "use_static_theme"):
         subprocess.run(["wal", "--theme", config["wallpaper"]["default_theme"]])
+        print("Tata")
     elif "theme" in wallpaper:
         subprocess.run(["wal", "--theme", wallpaper["theme"]])
+        print("Tete")
     else:
         # bug when for covers, see https://github.com/dylanaraps/pywal/issues/429
         # cache is not reset, so we have to do it by hand first
         subprocess.run(["wal", "-c"])
         subprocess.run(["wal", "-i", file, "-n"])
+        print("Tutu")
     # fixing powerline colors
     subprocess.run([abspath(expanduser(config["wallpaper"]["powerline_colors"]))])
+    print("Toto")
     return
 
 
@@ -132,16 +141,25 @@ def select_wallpaper(infos):
                     excluded = True
                     break
             if not excluded:
-                for tag in pic["tags"]:
-                    if tag in INCLUDE_TAGS and pic not in selected_pictures:
-                        selected_pictures.append(pic)
-                        break
-                for colour in pic["colours"]:
-                    if colour in INCLUDE_COLOURS and pic not in selected_pictures:
-                        selected_pictures.append(pic)
-                        break
-                if pic["file"] in INCLUDE_FILES and pic not in selected_pictures:
-                    selected_pictures.add(pic)
+                if len(INCLUDE_TAGS) == 0:
+                    selected_pictures.append(pic)
+                else:
+                    for tag in pic["tags"]:
+                        if tag in INCLUDE_TAGS and pic not in selected_pictures:
+                            selected_pictures.append(pic)
+                            break
+                if len(INCLUDE_COLOURS) > 0:
+                    selected_pictures.append(pic)
+                else:
+                    for colour in pic["colours"]:
+                        if colour in INCLUDE_COLOURS and pic not in selected_pictures:
+                            selected_pictures.append(pic)
+                            break
+                if len(INCLUDE_FILES) > 0:
+                    selected_pictures.append(pic)
+                else:
+                    if pic["file"] in INCLUDE_FILES and pic not in selected_pictures:
+                        selected_pictures.add(pic)
 
     if len(selected_pictures) == 0:
         print("There is no wallpaper matching your criteria.")

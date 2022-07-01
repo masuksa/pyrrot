@@ -10,6 +10,7 @@ wallpaper_script = /path/to/wallpaper/wallpaper.py
 # if debug = true, the output is more verbose
 debug = true
 picture_infos = ~/Images/backgrounds/infos.json
+update_theme = false
 
 [mpd]
 # if it's the same song for more than 3600 seconds, we still refresh the cover in /tmp/cover.jpg
