@@ -24,6 +24,9 @@ print("config: {}".format(CONFIG_FILE))
 if config["global"]["debug"] == "true":
     print("Mode: {}".format(config["global"]["mode"]))
 
+if config["global"]["mode"] not in ("all", "selection", "albumart"):
+    raise Exception("Error: Mode is wrong ! Must be one of all, selection or albumart.")
+
 INCLUDE_TAGS =      [tag.strip() for tag in config["wallpaper"]["include_tags"].strip("[]").split(',')]
 INCLUDE_COLOURS =   [colour.strip() for colour in config["wallpaper"]["include_colours"].strip("[]").split(',')]
 INCLUDE_FILES =     [filename.strip() for filename in config["wallpaper"]["include_files"].strip("[]").split(',')]
