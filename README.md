@@ -26,3 +26,15 @@ It requires `wallpaper.py`.
 
 Python 3.7 for the mpd script, Python 3.5 for the wallpaper.py, pywal and feh.
 Linux (it might work on some BSD or macOS but it may need some tweaks, and it hasn't been tested at all)
+
+## Development
+
+This software uses `pytest` to run automated test, checking that it functions well.
+Below is a list of commands useful for checking everything is allright.
+
+```sh
+pip install -e .
+coverage run -m pytest --junitxml=report.xml
+covergare report
+pylint src/
+```
