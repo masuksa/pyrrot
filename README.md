@@ -1,3 +1,5 @@
+# Pyrrot
+
 This is a collection of scripts I use to manage my wallpapers.
 This is made for my usage in mind, and hasn't been tested much by others, but it might interest you.
 If you've got any suggestion or issue, please let me know.
@@ -35,6 +37,6 @@ Below is a list of commands useful for checking everything is allright.
 ```sh
 pip install -e .
 coverage run -m pytest --junitxml=report.xml
-covergare report
+coverage report
 pylint src/
 ```
