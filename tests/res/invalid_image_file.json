@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Hazard Stripes",
+        "author": "masuksa",
+        "file": "img/this-file-does-not-exist.png",
+        "tags": ["test", "workinprogress", "🚧", "wrong"],
+        "colours": ["yellow", "black"]
+    }
+]
