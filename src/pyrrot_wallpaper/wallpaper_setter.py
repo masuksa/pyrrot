@@ -75,8 +75,9 @@ class WallpaperSetter():
             #scheme_dir = os.path.join(CACHE_DIR, "schemes")
             #shutil.rmtree(scheme_dir, ignore_errors=True)
             colors = pywal.colors.get(wallpaper_path)
-        pywal.sequences.send(colors)
+        pywal.sequences.send(colors, vte_fix=True)
         pywal.export.every(colors)
+        pywal.reload.env()
         # fixing powerline colors
         # subprocess.run([abspath(expanduser(wallpaper_config.theme["powerline_colours"]))],
         # check=True)
