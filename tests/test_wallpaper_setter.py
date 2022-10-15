@@ -27,11 +27,11 @@ class TestWallpaperSetter(unittest.TestCase):
         self.assertEqual(self.wallpaper_setter.get_wallpaper_full_path(music_pic, self.wallpaper_config), "/tmp/cover.png")
         self.wallpaper_config.selection_mode = SelectionMode.ALL
 
-    def test_set_wallpaper(self):
-        wallpaper_dict_w_full_path = self.wallpaper_dict
-        wallpaper_dict_w_full_path["file"] = self.wallpaper_setter.get_wallpaper_full_path(self.wallpaper_dict, self.wallpaper_config)
-        self.wallpaper_setter.set_wallpaper(self.wallpaper_dict)
-        # TODO check that the error is raised when using it wrong
+    # def test_set_wallpaper(self):
+    #     wallpaper_dict_w_full_path = self.wallpaper_dict
+    #     wallpaper_dict_w_full_path["file"] = self.wallpaper_setter.get_wallpaper_full_path(self.wallpaper_dict, self.wallpaper_config)
+    #     self.wallpaper_setter.set_wallpaper(self.wallpaper_dict)
+    #     TODO check that the error is raised when using it wrong
 
     def test_get_theme(self):
         theme = self.wallpaper_setter.get_theme(self.wallpaper_dict, self.wallpaper_config)
@@ -46,9 +46,9 @@ class TestWallpaperSetter(unittest.TestCase):
         theme = self.wallpaper_setter.get_theme(self.wallpaper_dict, self.wallpaper_config)
         self.assertIsNone(theme)
 
-    def test_set_theme(self):
-        wallpaper_path = expanduser(dirname(self.wallpaper_config.metadata_file)) + "/" + self.wallpaper_dict["file"]
-        # TODO the following doesn't work as the example image is too simple
-        # self.wallpaper_setter.set_theme(wallpaper_path)
-        theme = "base16-dracula"
-        self.wallpaper_setter.set_theme(wallpaper_path, theme=theme)
+    # def test_set_theme(self):
+    #     wallpaper_path = expanduser(dirname(self.wallpaper_config.metadata_file)) + "/" + self.wallpaper_dict["file"]
+    #     # TODO the following doesn't work as the example image is too simple
+    #     # self.wallpaper_setter.set_theme(wallpaper_path)
+    #     theme = "base16-dracula"
+    #     self.wallpaper_setter.set_theme(wallpaper_path, theme=theme)
