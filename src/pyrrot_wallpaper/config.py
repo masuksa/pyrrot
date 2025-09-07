@@ -75,3 +75,7 @@ class WallpaperConfig():
             "default_theme": config["theme"]["default_theme"],
             "powerline_colours": config["theme"]["powerline_colours"]
         }
+
+        self.monitor = config["global"]["monitor"]
+
+        self.bg_backend = config["global"]["bg_backend"]

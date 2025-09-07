@@ -10,6 +10,7 @@ It is currently in the process of being cleaned and refactored.
 # * If the song is paused (for more than x seconds), use a "normal" wallpaper
 # * CONFIG_FILE override
 
+import sys
 from os.path import expanduser, dirname
 
 from pyrrot_wallpaper.wallpaper_metadata import WallpaperMetadata
@@ -68,7 +69,7 @@ def main():
     else:
         pic = wallpaperMetdata.select_single_wallpaper(wallpaper_config)
     pic["file"] = wallpaper_setter.get_wallpaper_full_path(pic, wallpaper_config)
-    wallpaper_setter.set_wallpaper(pic)
+    wallpaper_setter.set_wallpaper(pic, monitor=wallpaper_config.monitor, backend=wallpaper_config.bg_backend)
     if wallpaper_config.theme["do_update_theme"]:
         wallpaper_setter.set_theme(pic["file"],
             theme=wallpaper_setter.get_theme(pic, wallpaper_config))
