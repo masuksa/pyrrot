@@ -69,7 +69,10 @@ def main():
     else:
         pic = wallpaperMetdata.select_single_wallpaper(wallpaper_config)
     pic["file"] = wallpaper_setter.get_wallpaper_full_path(pic, wallpaper_config)
-    wallpaper_setter.set_wallpaper(pic, monitor=wallpaper_config.monitor, backend=wallpaper_config.bg_backend)
+    if wallpaper_config.bg_backend == "feh":
+        wallpaper_setter.set_wallpaper(pic, monitor=wallpaper_config.monitor, backend=wallpaper_config.bg_backend, options=("--bg-fill",))
+    else:
+        wallpaper_setter.set_wallpaper(pic, monitor=wallpaper_config.monitor, backend=wallpaper_config.bg_backend)
     if wallpaper_config.theme["do_update_theme"]:
         wallpaper_setter.set_theme(pic["file"],
             theme=wallpaper_setter.get_theme(pic, wallpaper_config))
