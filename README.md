@@ -1,3 +1,5 @@
+# Pyrrot
+
 This is a collection of scripts I use to manage my wallpapers.
 This is made for my usage in mind, and hasn't been tested much by others, but it might interest you.
 If you've got any suggestion or issue, please let me know.
@@ -26,3 +28,15 @@ It requires `wallpaper.py`.
 
 Python 3.7 for the mpd script, Python 3.5 for the wallpaper.py, pywal and feh.
 Linux (it might work on some BSD or macOS but it may need some tweaks, and it hasn't been tested at all)
+
+## Development
+
+This software uses `pytest` to run automated test, checking that it functions well.
+Below is a list of commands useful for checking everything is allright.
+
+```sh
+pip install -e .
+coverage run -m pytest --junitxml=report.xml
+coverage report
+pylint src/
+```
