@@ -9,6 +9,8 @@ albumart = /tmp/cover.jpg
 debug = true
 picture_infos = ~/Images/backgrounds/infos.json
 update_theme = false
+monitor = eDP-1 # the name of your monitor, which can be found using `xrandr` or `swaymsg -t get_outputs`
+bg_backend = swaymsg # can also be feh if using X11
 
 [mpd]
 # if it's the same song for more than 3600 seconds, we still refresh the cover in /tmp/cover.jpg
