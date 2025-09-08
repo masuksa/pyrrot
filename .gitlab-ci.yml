@@ -1,0 +1,37 @@
+stages:
+- test
+- package
+
+image: python:3.7
+
+python-tests:
+  stage: test
+  before_script:
+  - pip install -r requirements.txt
+  - pip install -e .
+  script:
+  - coverage run -m pytest --junitxml=report.xml
+  artifacts:
+    reports:
+      junit: report.xml
+
+python-linting:
+  stage: test
+  allow_failure: true
+  before_script:
+  - pip install -r requirements.txt
+  - pip install -e .
+  script:
+  - pylint src/
+  - exit 0
+  # cf. this for badge : https://stackoverflow.com/questions/43126475/pylint-badge-in-gitlab
+
+pypi-upload:
+  stage: package
+  before_script:
+    - python3 -m pip install --upgrade build twine
+  script:
+  - python3 -m build
+  - python3 -m twine upload --repository testpypi dist/*
+  only:
+    - tag
