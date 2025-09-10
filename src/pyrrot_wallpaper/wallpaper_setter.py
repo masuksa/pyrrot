@@ -32,7 +32,7 @@ class WallpaperSetter():
                 + wallpaper_dict["file"]
         return fullpath
 
-    def set_wallpaper(self, wallpaper_dict: dict, backend: str="swaymsg", monitor: str="eDP-1", options: tuple=("fill",)) -> None:
+    def set_wallpaper(self, wallpaper_dict: dict, backend: str="swaymsg", monitor: str="eDP-1", options: list[str]=["fit",]) -> None:
         """
         Sets the wallpaper given in wallpaper_dict, according to the options in wallpaper_config,
         using feh.
@@ -41,9 +41,10 @@ class WallpaperSetter():
         """
         # feh is used, and not pywal.wallpaper.change() as the latter doesn't support feh arguments
         if backend == "feh":
-            subprocess.run(["feh", wallpaper_dict["file"]] + list(options), check=True)
+            subprocess.run(["feh", wallpaper_dict["file"]] + options, check=True)
         else:
-            subprocess.run(["swaymsg", "output", monitor, "bg", wallpaper_dict["file"]] + list(options), capture_output=True, check=True)
+            # commas (,) need to be enclosed in both quotes and double quotes
+            subprocess.run(["swaymsg", "output " + monitor + " bg \"" + wallpaper_dict["file"] + "\" " + " ".join(options)], capture_output=True, check=True)
 
     def get_theme(self, wallpaper_dict: dict, wallpaper_config: WallpaperConfig):
         """

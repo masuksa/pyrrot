@@ -79,3 +79,9 @@ class WallpaperConfig():
         self.monitor = config["global"]["monitor"]
 
         self.bg_backend = config["global"]["bg_backend"]
+        if "bg_backend_options" in config["global"] and config["global"]["bg_backend_options"].strip() != "":
+            self.bg_backend_options = config["global"]["bg_backend_options"].split(" ")
+        elif self.bg_backend == "feh":
+            self.bg_backend_options = ["--bg-fill"]
+        else: # swaymsg
+            self.bg_backend_options = ["fit"]
