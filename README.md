@@ -20,7 +20,7 @@ It requires `wallpaper.py`.
 ## Usage
 
 1. Edit wallpaper.conf according to your needs.
-2. Setup a cron job to run wallpaper.py to change the wallpaper regularly. Mine is `*/5 * * * * DISPLAY=:0 /home/user/scripts/wallpaper/wallpaper.py` for X11, and `SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock /home/inazu    ma/scripts/pyrrot/pyrrot-wrapper.sh` for Wayland.
+2. Setup a cron job to run wallpaper.py to change the wallpaper regularly. Mine is `*/5 * * * * DISPLAY=:0 /home/user/scripts/wallpaper/wallpaper.py` for X11, and `SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock /home/user/scripts/pyrrot/pyrrot-wrapper.sh` for Wayland.
 3. Setup a systemd task for the mpd part (optional). See the `mpd-wallpaper.service.example`.
  Of course if you prefer not to run the scripts with cron or systemd, you're free to use them as you want.
 
